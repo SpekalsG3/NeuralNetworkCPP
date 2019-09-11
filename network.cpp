@@ -1,5 +1,5 @@
-#include "./includes/network.hpp"
 #include "./includes/neuron.hpp"
+#include "./includes/network.hpp"
 #include <cassert>
 
 Net::Net(const std::vector<unsigned> &structure) {
@@ -38,7 +38,7 @@ void Net::backProp(const std::vector<double> &targetValues) {
   Layer &outputLayer = this->layers.back();
   this->error = 0.0;
 
-  for (unsigned n = 0; n < outputLayer.size() -1; n++) {
+  for (unsigned n = 0; n < outputLayer.size() - 1; n++) {
     double delta = targetValues[n] - outputLayer[n].getOutputVal();
     this->error += delta * delta;
   }
@@ -54,8 +54,7 @@ void Net::backProp(const std::vector<double> &targetValues) {
   }
 
   // Calculate gradients on hidden layers
-
-  for (unsigned layerNum = this->layers.size() -2; layerNum > 0; layerNum--) {
+  for (unsigned layerNum = this->layers.size() - 2; layerNum > 0; layerNum--) {
     Layer &hiddenLayer = this->layers[layerNum];
     Layer &nextLayer = this->layers[layerNum + 1];
 
@@ -65,7 +64,7 @@ void Net::backProp(const std::vector<double> &targetValues) {
   }
 
   // Update connection weights
-  for (unsigned layerNum = this->layers.size() -1; layerNum > 0; layerNum--) {
+  for (unsigned layerNum = this->layers.size() - 1; layerNum > 0; layerNum--) {
     Layer &layer = this->layers[layerNum];
     Layer &prevLayer = this->layers[layerNum];
 

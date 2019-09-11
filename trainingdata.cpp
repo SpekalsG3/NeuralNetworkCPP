@@ -1,6 +1,12 @@
 #include "./includes/trainingdata.hpp"
 
+TrainingData::TrainingData() {}
+
 TrainingData::TrainingData(const std::string filename) {
+  this->trainingDataFile.open(filename.c_str());
+}
+
+void TrainingData::openData(const std::string filename) {
   this->trainingDataFile.open(filename.c_str());
 }
 
@@ -24,8 +30,6 @@ void TrainingData::getStructure(std::vector<unsigned> &structure) {
     ss >> n;
     structure.push_back(n);
   }
-
-  return;
 }
 
 unsigned TrainingData::getNextInputs(std::vector<double> &inputValues) {

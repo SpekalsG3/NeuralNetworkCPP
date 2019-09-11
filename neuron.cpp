@@ -2,10 +2,6 @@
 
 typedef std::vector<Neuron> Layer;
 
-double Neuron::randomWeight() {
-  return rand() / double(RAND_MAX);
-}
-
 Neuron::Neuron(unsigned outputsNum, unsigned index) {
   for (unsigned c = 0; c < outputsNum; c++) {
     this->outputWeights.push_back(Connection());
@@ -15,7 +11,11 @@ Neuron::Neuron(unsigned outputsNum, unsigned index) {
   this->index = index;
 }
 
-void  Neuron::setOutputVal(double val) {
+double Neuron::randomWeight() {
+  return rand() / double(RAND_MAX);
+}
+
+void Neuron::setOutputVal(double val) {
   this->outputVal = val;
 }
 

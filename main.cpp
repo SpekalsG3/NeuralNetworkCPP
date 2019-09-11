@@ -15,7 +15,9 @@ int main() {
   std::string trainingDataFile;
   std::cout << "Enter training data file's name? ";
   std::cin >> trainingDataFile;
-  TrainingData trainData(trainingDataFile);
+  // TrainingData trainData(trainingDataFile);
+  TrainingData trainData;
+  trainData.openData(trainingDataFile);
 
   std::vector<unsigned> structure;
   trainData.getStructure(structure);

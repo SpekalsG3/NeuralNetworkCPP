@@ -8,7 +8,7 @@ int main() {
   std::string output;
   std::cout << "What do we call training data file? ";
   std::cin >> output;
-  std::ofstream sample(output);
+  std::ofstream sample(output + ".txt");
 
   unsigned layersNum;
   std::cout << "How many layers? ";
@@ -33,7 +33,7 @@ int main() {
     std::cin >> inVal;
     std::cout << "Out value: ";
     std::cin >> outVal;
-    std::cout << "in:" << inVal << std::endl << "out:" << outVal << std::endl;
+    sample << "in:" << inVal << std::endl << "out:" << outVal << std::endl;
   }
 
   std::cout << "Done";
