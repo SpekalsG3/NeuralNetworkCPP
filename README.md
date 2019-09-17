@@ -1,8 +1,8 @@
-#Simple neural network in c++
+# Simple neural network in c++
 
 > I'm not pretending to be the author of this idea. Original was lost on "Vimeo" - video hosting platform. I'm just using in learning purposes.
 
-##Installation
+## Installation
 
 Use following command to clone this repo:
 
