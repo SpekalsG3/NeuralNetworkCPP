@@ -43,7 +43,6 @@ int main() {
     // Train the network what outputs should have been
     trainData.getTargetOutputs(targetValues);
     showVectorValues("Targets:", targetValues);
-    // assert(targetValues.size() == structure.back());
 
     network.backProp(targetValues);
 
