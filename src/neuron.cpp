@@ -1,6 +1,8 @@
 #include "./includes/neuron.hpp"
 
-typedef std::vector<Neuron> Layer;
+double Neuron::randomWeight() {
+  return rand() / double(RAND_MAX);
+}
 
 Neuron::Neuron(unsigned outputsNum, unsigned index) {
   for (unsigned c = 0; c < outputsNum; c++) {
@@ -11,11 +13,7 @@ Neuron::Neuron(unsigned outputsNum, unsigned index) {
   this->index = index;
 }
 
-double Neuron::randomWeight() {
-  return rand() / double(RAND_MAX);
-}
-
-void Neuron::setOutputVal(double val) {
+void  Neuron::setOutputVal(double val) {
   this->outputVal = val;
 }
 
@@ -80,4 +78,19 @@ void Neuron::updateInputWeights(Layer &prevLayer) {
     neuron.outputWeights[this->index].deltaWeight = newDeltaWeight;
     neuron.outputWeights[this->index].weight += newDeltaWeight;
   }
+}
+
+void Neuron::getData(std::ofstream &output) {
+  output << this->index << ' ' << this->gradient;
+  for (const Connection& conn : this->outputWeights) {
+    output << ' ' << conn.deltaWeight << ' ' << conn.weight;
+  }
+}
+
+void Neuron::setGradient(double gradient) {
+  this->gradient = gradient;
+}
+
+void Neuron::setWeights(std::vector<Connection> &weights) {
+  this->outputWeights = weights;
 }

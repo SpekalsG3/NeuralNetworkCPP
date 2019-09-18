@@ -1,6 +1,7 @@
 #include <iostream>
 #include "./includes/network.hpp"
 #include "./includes/trainingdata.hpp"
+#include "./includes/networksettings.hpp"
 
 void showVectorValues(std::string label, std::vector<double> &v) {
   std::cout << label << " ";
@@ -12,12 +13,21 @@ void showVectorValues(std::string label, std::vector<double> &v) {
 }
 
 int main() {
-  std::string trainingDataFile;
+  std::string dataFile;
+  // NetworkSettings settings(network);
+
+  // std::cout << "Enter neurons' settings file's name? ";
+  // std::cin >> dataFile;
+
+  // Net network;
+  // NetworkSettings settings(network);
+  // settings.openSettings("./tmp/settings.txt");
+
+
+
   std::cout << "Enter training data file's name? ";
-  std::cin >> trainingDataFile;
-  // TrainingData trainData(trainingDataFile);
-  TrainingData trainData;
-  trainData.openData(trainingDataFile);
+  std::cin >> dataFile;
+  TrainingData trainData(dataFile);
 
   std::vector<unsigned> structure;
   trainData.getStructure(structure);
@@ -49,6 +59,8 @@ int main() {
     // Report how well the training goes
     std::cout << "Net recent average error: " << network.getRecentAverageError() << std::endl;
   }
+  NetworkSettings settings(network);
+  settings.saveSettings("./tmp/settings.txt");
 
   std::cout << std::endl << "Done";
 

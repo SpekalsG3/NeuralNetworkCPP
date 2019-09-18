@@ -1,8 +1,13 @@
 #include "./includes/neuron.hpp"
 #include "./includes/network.hpp"
-#include <cassert>
+
+Net::Net() {}
 
 Net::Net(const std::vector<unsigned> &structure) {
+  this->setStructure(structure);
+}
+
+void Net::setStructure(const std::vector<unsigned int> &structure) {
   unsigned numLayers = structure.size();
   for (unsigned layerNum = 0; layerNum < numLayers; layerNum++) {
     this->layers.push_back(Layer());
@@ -54,6 +59,7 @@ void Net::backProp(const std::vector<double> &targetValues) {
   }
 
   // Calculate gradients on hidden layers
+
   for (unsigned layerNum = this->layers.size() - 2; layerNum > 0; layerNum--) {
     Layer &hiddenLayer = this->layers[layerNum];
     Layer &nextLayer = this->layers[layerNum + 1];
@@ -64,7 +70,7 @@ void Net::backProp(const std::vector<double> &targetValues) {
   }
 
   // Update connection weights
-  for (unsigned layerNum = this->layers.size() - 1; layerNum > 0; layerNum--) {
+  for (unsigned layerNum = this->layers.size() -1; layerNum > 0; layerNum--) {
     Layer &layer = this->layers[layerNum];
     Layer &prevLayer = this->layers[layerNum - 1];
 
@@ -84,4 +90,13 @@ void Net::getResults(std::vector<double> &resultValues) const {
 
 double Net::getRecentAverageError() const {
   return this->recentAverageError;
+}
+
+std::vector<Layer> Net::getLayers() const {
+  return this->layers;
+}
+
+void Net::setNeuron(unsigned indexLayer, unsigned indexNeuron, double gradient, std::vector<Connection> &weights) {
+  this->layers[indexLayer][indexNeuron].setGradient(gradient);
+  this->layers[indexLayer][indexNeuron].setWeights(weights);
 }

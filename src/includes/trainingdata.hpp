@@ -10,7 +10,7 @@ public:
   TrainingData();
   TrainingData(const std::string filename);
   void openData(const std::string filename);
-  bool isEof();
+  bool isEof(void);
   void getStructure(std::vector<unsigned> &structure);
 
   unsigned getNextInputs(std::vector<double> &inputValues);

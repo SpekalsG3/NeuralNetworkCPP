@@ -2,6 +2,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include <fstream>
 
 class Neuron;
 typedef std::vector<Neuron> Layer;
@@ -26,6 +27,10 @@ public:
   // Setters and Getters
   void setOutputVal(double val);
   double getOutputVal() const;
+
+  void getData(std::ofstream &output);
+  void setGradient(double gradient);
+  void setWeights(std::vector<Connection> &weights);
 
 private:
   static double eta;    // overall net learning rate [0.0; 1.0]
