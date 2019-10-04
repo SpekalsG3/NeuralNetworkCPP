@@ -3,7 +3,7 @@
 
 To see this neural network in work immediately you can go to my repl project on [Repl.it](https://repl.it/) (There is only one training data sample):
 
-[C++ Neural Network](https://repl.it/@SpekalsG3Play/Neural-Network-C)
+[C++ Neural Network](https://repl.it/@SpekalsG3Play/Neural-Network-C)  
 [Python Neural Network](https://repl.it/@SpekalsG3Play/Neural-Network-Python)
 
 ## Installation
