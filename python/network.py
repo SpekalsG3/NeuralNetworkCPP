@@ -1,3 +1,4 @@
+from numpy import exp
 import math
 import random
 import json
@@ -10,25 +11,26 @@ class Connection:
 
 class Neuron:
   def __init__(self, outputsNum, index):
-    self.outputWeights = [Connection(random.uniform(-1, 1)) for _ in range(outputsNum)]
+    self.outputWeights = [Connection(random.uniform(0, 1)) for _ in range(outputsNum)]
     self.index = index
     self.eta = .15
     self.alpha = .5
+    self.output = 1
 
-  def sigmoid(self, x):
-      # return 1 / (1 + math.exp(-x))
-      return math.tanh(x)
+  def activation(self, x):
+      return 1 / (1 + exp(-x))   # Sigmoid Activation
+      # return math.tanh(x)           # Tanh Activation
 
-  def sigmoidDerivative(self, x):
-      # return x * (1 - x)
-      return 1 - x * x
+  def activationDerivative(self, x):
+      return x * (1 - x)              # Sigmoid Activation
+      # return 1 - x * x              # Tanh Activation
 
   def feedForward(self, prevLayer):
     summary = 0
     for neuron in prevLayer:
       summary += neuron.output * neuron.outputWeights[self.index].weight
 
-    self.output = self.sigmoid(summary)
+    self.output = self.activation(summary)
 
   def sumDOW(self, nextLayer):
     summary = 0
@@ -38,10 +40,10 @@ class Neuron:
     return summary
 
   def calcOutputGradients(self, targetValue):
-    self.gradient = (targetValue - self.output) * self.sigmoidDerivative(self.output)
+    self.gradient = (targetValue - self.output) * self.activationDerivative(self.output)
 
   def calcHiddenGradients(self, nextLayer):
-    self.gradient = self.sumDOW(nextLayer) * self.sigmoidDerivative(self.output)
+    self.gradient = self.sumDOW(nextLayer) * self.activationDerivative(self.output)
 
   def updateWeights(self, prevLayer):
     for n in range(len(prevLayer)):
@@ -142,23 +144,22 @@ class NeuralNetwork:
       result.append(self.layers[-1][n].output)
     return result
 
-def test():
-  print("Simple network to work with XOR")
-  network = NeuralNetwork([2, 4, 1])
+  def test(self):
+    self.setStructure([2, 4, 1])
 
-  training_inputs = [[1, 1],
-                     [1, 0],
-                     [0, 1],
-                     [0, 0]]
+    training_inputs = [[1, 1],
+                       [1, 0],
+                       [0, 1],
+                       [0, 0]]
 
-  training_outputs = [[1], [0], [0], [1]]
+    training_outputs = [[1], [0], [0], [1]]
 
-  network.train(training_inputs, training_outputs, 1000)
+    self.train(training_inputs, training_outputs, 1000)
 
-  print("Network trained. Now you can test it:")
+    print("Network trained. Now you can test it:")
 
-  while 1:
-    a = int(input("- a: "))
-    b = int(input("  b: "))
-    network.feedForward([a, b])
-    print(network.getResults())
+    while 1:
+      a = int(input("- a: "))
+      b = int(input("  b: "))
+      self.feedForward([a, b])
+      print(self.getResults())
